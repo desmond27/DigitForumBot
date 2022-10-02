@@ -1,5 +1,7 @@
 # DigitForumBot
-A Telegram bot that posts latest posts from the Digit Forum
+A Telegram bot that posts latest posts from the Digit Forum.
+
+I am fairly new to Kotlin programming while coming from a Java background. I mostly wrote this as a way to practice programming with Kotlin.
 
 ## Building
 Before building, you need to get your own bot token and bot username using [@BotFather](https://telegram.im/BotFather). More details on creating Telegram bots can be found [here](https://core.telegram.org/bots#3-how-do-i-create-a-bot).
@@ -20,3 +22,11 @@ Welcome! DigitForumBot has been activated for this chat.
 ```
 
 After this, you will receive a message will Latest posts based on the frequency you have set above.
+
+## TODO
+
+Some future enhancements that need to be implemented:
+
+* Add support for deactivating in a chat.
+* Generalize the bot to work with any Xenforo based forum.
+* Add support for additional updates such as user updates.
