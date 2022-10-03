@@ -12,11 +12,14 @@ import org.telegram.telegrambots.meta.api.objects.Update
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException
 import java.io.File
 import java.nio.charset.StandardCharsets
+import java.math.BigInteger
+import java.security.MessageDigest
 
 object NewPostsBot : TelegramLongPollingBot() {
 
     private var activeChatIds = ArrayList<Long>()
     private const val NEW_POSTS_CHAT_ID_FILENAME = "NewPostsChatIds.txt"
+    private const val LAST_HASH_FILENAME = "lastHash.txt"
 
     init {
 
@@ -110,12 +113,14 @@ object NewPostsBot : TelegramLongPollingBot() {
         sendMessage.disableWebPagePreview = true
         sendMessage.parseMode = ParseMode.HTML
         sendMessage.text = makeNewPostsTelegramMessage(10)
-        activeChatIds.forEach {
-            sendMessage.chatId = it.toString()
-            try {
-                execute(sendMessage)
-            } catch (e: TelegramApiException) {
-                e.printStackTrace()
+        if ( sendMessage.text != "" ) {
+            activeChatIds.forEach {
+                sendMessage.chatId = it.toString()
+                try {
+                    execute(sendMessage)
+                } catch (e: TelegramApiException) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -131,7 +136,36 @@ object NewPostsBot : TelegramLongPollingBot() {
                 }\n\n"
             message += entry
         }
-
+        if(checkIfNew(message) ==1){
+            message=""
+        }
         return message
+    }
+
+    private fun checkIfNew(message: String): Int {
+
+        var lastHash = ""
+
+        val hashable = message.toByteArray(Charsets.UTF_8)
+        val md = MessageDigest.getInstance("MD5")
+        val newHash = String.format("%032x", BigInteger(1, md.digest(hashable)))
+
+        // Check if file exists, if it does not exist, create it.
+        val lastHashFile = File(LAST_HASH_FILENAME)
+        if (!lastHashFile.exists()) {
+            lastHashFile.createNewFile()
+        }
+        else {
+            //Read the old hash
+            lastHash = lastHashFile.readText()
+        }
+
+        if ( lastHash == newHash ) {
+            return 1
+        }
+        val tempfile = File("hash.tmp")
+        tempfile.appendText(newHash)
+        tempfile.renameTo(lastHashFile)
+        return 0
     }
 }
