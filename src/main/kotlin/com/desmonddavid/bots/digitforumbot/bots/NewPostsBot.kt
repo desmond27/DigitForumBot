@@ -63,13 +63,13 @@ object NewPostsBot : TelegramLongPollingBot() {
                 }
             }
             if (update.message.text.equals("/stop") || update.message.text.equals("/stop@DigitForumBot")) {
-                val filteredList = arrayListOf<Long>()
-                println("Received stop for chat: ${update.message.chatId}")
-                activeChatIds.filterTo(filteredList, { it!=update.message.chatId })
-                activeChatIds = filteredList
-                removeChatIdFromFile(update.message.chatId)
-                println("Current active chat ids: $activeChatIds")
-                sendTextMessage(update.message.chatId, "DigitForumBot has been deactivated for this chat. Goodbye!")
+                if(activeChatIds.contains(update.message.chatId)) {
+                    println("Received stop for chat: ${update.message.chatId}")
+                    activeChatIds.removeIf({ it==update.message.chatId })
+                    removeChatIdFromFile(update.message.chatId)
+                    println("Current active chat ids: $activeChatIds")
+                    sendTextMessage(update.message.chatId, "DigitForumBot has been deactivated for this chat. Goodbye!")
+                }
             }
         }
     }
