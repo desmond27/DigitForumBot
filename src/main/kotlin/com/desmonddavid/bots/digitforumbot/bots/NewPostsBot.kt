@@ -137,19 +137,15 @@ object NewPostsBot : TelegramLongPollingBot() {
                 }\n\n"
             message += entry
         }
-        if(checkIfNew(message) ==1){
+        if(!checkIfNew(message)){
             message=""
         }
         return message
     }
 
-    private fun checkIfNew(message: String): Int {
+    private fun checkIfNew(message: String): Boolean {
 
         var lastHash = ""
-
-        val hashable = message.toByteArray(Charsets.UTF_8)
-        val md = MessageDigest.getInstance("MD5")
-        val newHash = String.format("%032x", BigInteger(1, md.digest(hashable)))
 
         // Check if file exists, if it does not exist, create it.
         val lastHashFile = File(LAST_HASH_FILENAME)
@@ -161,12 +157,16 @@ object NewPostsBot : TelegramLongPollingBot() {
             lastHash = lastHashFile.readText()
         }
 
+        val hashable = message.toByteArray(Charsets.UTF_8)
+        val md = MessageDigest.getInstance("MD5")
+        val newHash = String.format("%032x", BigInteger(1, md.digest(hashable)))
+
         if ( lastHash == newHash ) {
-            return 1
+            return false
         }
         val tempfile = File("hash.tmp")
         tempfile.appendText(newHash)
         tempfile.renameTo(lastHashFile)
-        return 0
+        return true
     }
 }
