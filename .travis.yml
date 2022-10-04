@@ -3,5 +3,5 @@ jdk: openjdk8
 jobs:
   include:
     - before_script:
-        - sed -i s/NEW_POSTS_BOT_TOKEN=.*/NEW_POSTS_BOT_TOKEN=$NEW_POSTS_BOT_TOKEN/g src/test/resources/app.properties
-        - sed -i s/NEW_POSTS_BOT_USERNAME=/NEW_POSTS_BOT_USERNAME=$NEW_POSTS_BOT_USERNAME/g src/test/resources/app.properties
+        - sed -i s/NEW_POSTS_BOT_TOKEN=.*/NEW_POSTS_BOT_TOKEN=$NEW_POSTS_BOT_TOKEN/g src/main/resources/app.properties
+        - sed -i s/NEW_POSTS_BOT_USERNAME=/NEW_POSTS_BOT_USERNAME=$NEW_POSTS_BOT_USERNAME/g src/main/resources/app.properties
