@@ -19,7 +19,7 @@ object NewPostsBot : TelegramLongPollingBot() {
 
     private var activeChatIds = ArrayList<Long>()
     private const val NEW_POSTS_CHAT_ID_FILENAME = "NewPostsChatIds.txt"
-    private const val LAST_HASH_FILENAME = "lastHash.txt"
+    private const val LAST_HASH_FILENAME = "NewPostsLastHash.txt"
 
     init {
 
