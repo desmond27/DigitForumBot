@@ -62,7 +62,29 @@ object NewPostsBot : TelegramLongPollingBot() {
                     sendTextMessage(update.message.chatId, "This bot is already active here.")
                 }
             }
+            if (update.message.text.equals("/stop") || update.message.text.equals("/stop@DigitForumBot")) {
+                if(activeChatIds.contains(update.message.chatId)) {
+                    println("Received stop for chat: ${update.message.chatId}")
+                    activeChatIds.removeIf { it==update.message.chatId }
+                    removeChatIdFromFile(update.message.chatId)
+                    println("Current active chat ids: $activeChatIds")
+                    sendTextMessage(update.message.chatId, "DigitForumBot has been deactivated for this chat. Goodbye!")
+                }
+            }
         }
+    }
+
+    private fun removeChatIdFromFile(chatId: Long?) {
+        val file = File(NEW_POSTS_CHAT_ID_FILENAME) //still assuming the file exists
+        val tempfile = File("id.tmp")
+        tempfile.createNewFile()
+        file.forEachLine{
+            if(it != chatId.toString()){
+                tempfile.appendText(it+"\n")
+            }
+        }
+        tempfile.renameTo(file)
+
     }
 
     private fun appendChatIdToFile(chatId: Long?) {

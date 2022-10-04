@@ -21,13 +21,13 @@ Once added, either post `/start` or `/start@<bot username>` if you have multiple
 Welcome! DigitForumBot has been activated for this chat.
 ```
 
-After this, you will receive a message will Latest posts based on the frequency you have set above.
+After this, you will receive a message with Latest posts based on the frequency you have set above.
 
 ## TODO
 
 Some future enhancements that need to be implemented:
 
-* Add support for deactivating in a chat.
+* ~~Add support for deactivating in a chat.~~
 * Add support for additional updates from the forum such as user updates.
 * Generalize the bot to work with any Xenforo based forum.
 * Make the executable configurable to accept properties from a properties file outside the JAR or from arguments or from environment variables.
