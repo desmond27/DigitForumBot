@@ -1,5 +1,9 @@
-# DigitForumBot
-A Telegram bot that posts latest posts from the Digit Forum.
+# DigitForumBot 
+[![Build Status](https://app.travis-ci.com/desmond27/DigitForumBot.svg?branch=master)](https://app.travis-ci.com/desmond27/DigitForumBot)
+
+----
+
+A Telegram bot that posts the latest posts from the Digit Forum.
 
 I am fairly new to Kotlin programming while coming from a Java background. I mostly wrote this as a way to practice programming with Kotlin.
 
@@ -10,7 +14,7 @@ Once you have your own bot token and bot username, enter these details in the [a
 
 Set the frequency of posting as needed against `POSTING_FREQUENCY_SECONDS`, the default value is one hour.
 
-After this, run `mvn clean package` in the project root and you will get the built executable JAR in the target directory as `DigitForumBot-1.0-SNAPSHOT-jar-with-dependencies.jar`. This can now be run as `java -jar DigitForumBot-1.0-SNAPSHOT-jar-with-dependencies.jar`.
+After this, run `mvn clean package` in the project root, and you will get the built executable JAR in the target directory as `DigitForumBot-1.0-SNAPSHOT-jar-with-dependencies.jar`. This can now be run as `java -jar DigitForumBot-1.0-SNAPSHOT-jar-with-dependencies.jar`.
 
 ## Adding the bot to your chat
 Search for your bot via the handle and add it to your chat.
@@ -21,7 +25,7 @@ Once added, either post `/start` or `/start@<bot username>` if you have multiple
 Welcome! DigitForumBot has been activated for this chat.
 ```
 
-After this, you will receive a message with Latest posts based on the frequency you have set above.
+After this, you will receive a message with the latest posts based on the frequency you have set above.
 
 ## TODO
 
