@@ -66,9 +66,13 @@ object NewPostsBot : TelegramLongPollingBot() {
                 }
             }
             if (update.message.text.equals("/stop") || update.message.text.equals("/stop@DigitForumBot")) {
-                println("Received stop for chat: ${update.message.chatId}")
-                removeChatIdFromFile(update.message.chatId)
-                sendTextMessage(update.message.chatId, "DigitForumBot has been deactivated for this chat. Goodbye!")
+                if(activeChatIds.contains(update.message.chatId)) {
+                    println("Received stop for chat: ${update.message.chatId}")
+                    activeChatIds.removeIf { it==update.message.chatId }
+                    removeChatIdFromFile(update.message.chatId)
+                    println("Current active chat ids: $activeChatIds")
+                    sendTextMessage(update.message.chatId, "DigitForumBot has been deactivated for this chat. Goodbye!")
+                }
             }
         }
     }
@@ -78,10 +82,7 @@ object NewPostsBot : TelegramLongPollingBot() {
         val tempfile = File("id.tmp")
         tempfile.createNewFile()
         file.forEachLine{
-            if(it == chatId.toString()){
-                //do nothing
-            }
-            else {
+            if(it != chatId.toString()){
                 tempfile.appendText(it+"\n")
             }
         }
