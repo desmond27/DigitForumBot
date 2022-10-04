@@ -114,7 +114,8 @@ object NewPostsBot : TelegramLongPollingBot() {
         sendMessage.disableWebPagePreview = true
         sendMessage.parseMode = ParseMode.HTML
         sendMessage.text = makeNewPostsTelegramMessage(10)
-        if ( sendMessage.text != "" ) {
+
+        if ( checkIfNew(sendMessage.text) ) {
             activeChatIds.forEach {
                 sendMessage.chatId = it.toString()
                 try {
@@ -136,9 +137,6 @@ object NewPostsBot : TelegramLongPollingBot() {
                     StringEscapeUtils.escapeHtml4(it.lastPostAuthor)
                 }\n\n"
             message += entry
-        }
-        if(!checkIfNew(message)){
-            message=""
         }
         return message
     }
