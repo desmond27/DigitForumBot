@@ -133,8 +133,10 @@ object NewPostsBot : TelegramLongPollingBot() {
         newPostsList = newPostsList.subList(0, limit)
         newPostsList.forEach {
             val entry =
-                "<a href=\"$DIGIT_BASE_URL${it.link}\">${StringEscapeUtils.escapeHtml4(it.title)}</a>\nby ${
-                    StringEscapeUtils.escapeHtml4(it.lastPostAuthor)
+                "<a href=\"$DIGIT_BASE_URL${it.link}\">${StringEscapeUtils.escapeHtml4(it.title)}</a> by ${
+                    StringEscapeUtils.escapeHtml4(it.ogPostAuthor)
+                }\nlast update by ${ 
+                    StringEscapeUtils.escapeHtml4(it.lastPostAuthor) 
                 }\n\n"
             message += entry
         }
