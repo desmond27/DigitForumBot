@@ -14,12 +14,13 @@ class NewPostsPage {
         newPostsListElements.forEach {
             val title = it.select("div.structItem-title").text()
             val link = it.select("div.structItem-cell--latest > a").attr("href")
+            val ogAuthor = it.select("div.structItem-minor > ul > li > a.username").text()
             val postAuthor = it.select("div.structItem-cell--latest > div.structItem-minor").text()
-            dataList.add(NewPost(title, link, postAuthor))
+            dataList.add(NewPost(title, link, ogAuthor, postAuthor))
         }
 
         return dataList
     }
 }
 
-data class NewPost(val title: String, val link: String, val lastPostAuthor: String)
+data class NewPost(val title: String, val link: String, val ogPostAuthor: String, val lastPostAuthor: String)
