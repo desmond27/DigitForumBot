@@ -3,7 +3,7 @@
 
 ----
 
-A Telegram bot that posts the latest posts from the Digit Forum.
+A Telegram bot that posts the latest posts from the [Digit Forum](https://geek.digit.in/community).
 
 I am fairly new to Kotlin programming while coming from a Java background. I mostly wrote this as a way to practice programming with Kotlin.
 
